@@ -59,6 +59,9 @@ export default function Nav({ page, setPage }) {
     { id: "about", label: "About" },
   ];
 
+  const activeIndex = links.findIndex(l => l.id === page);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
   const go = (id) => { 
     setPage(id); 
     setMobileOpen(false); 
@@ -72,8 +75,34 @@ export default function Nav({ page, setPage }) {
           <MusicWave size={18} /> <span>{ARTIST_NAME}</span>
         </button>
         <div className="nav-links" role="menubar">
-          {links.map(l => (
-            <button key={l.id} className={`nav-link ${page === l.id ? "active" : ""}`} onClick={() => go(l.id)} role="menuitem">
+          <div 
+            className="nav-pill" 
+            style={{
+              transform: `translateX(${(hoveredIndex !== null ? hoveredIndex : (activeIndex !== -1 ? activeIndex : 0)) * 88}px)`
+            }} 
+          />
+          <svg 
+            className={`nav-outline ${hoveredIndex !== null ? "is-hovering" : ""}`} 
+            overflow="visible" 
+            width={88} 
+            height={40} 
+            viewBox="0 0 88 40" 
+            xmlns="http://www.w3.org/2000/svg"
+            style={{
+              transform: `translateX(${(hoveredIndex !== null ? hoveredIndex : (activeIndex !== -1 ? activeIndex : 0)) * 88}px)`
+            }} 
+          >
+            <rect className="nav-rect" pathLength={100} x={0} y={0} width={88} height={40} fill="transparent" strokeWidth={2} />
+          </svg>
+          {links.map((l, index) => (
+            <button 
+              key={l.id} 
+              className={`nav-link ${page === l.id ? "active" : ""}`} 
+              onClick={() => go(l.id)} 
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              role="menuitem"
+            >
               {l.label}
             </button>
           ))}

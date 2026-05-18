@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MusicWave, Cover, SpotifyIcon, AppleMusicIcon, YouTubeMusicIcon, PopBar, Countdown } from "../components/Common";
+import { MusicWave, Cover, SpotifyIcon, AppleMusicIcon, YouTubeMusicIcon, PopBar, Countdown, RealismButton, GlassCardStack } from "../components/Common";
 import { fmtMs, fmtNum } from "../utils";
 import { YOUTUBE_MUSIC_URL, APPLE_MUSIC_URL, YOUTUBE_VIDEO_ID, ARTIST_NAME, ARTIST_TAGLINE, ARTIST_BIO, ARTIST_GENRES, SHOW_STATS, SHOW_LATEST_VIDEO, SHOW_COUNTDOWN, SHOW_FEATURED_TRACKS, SHOW_LATEST_RELEASE } from "../config";
 import { useData } from "../context/DataContext";
@@ -52,15 +52,28 @@ export default function HomePage({ artist, topTracks, setPage }) {
             </div>
             )}
             <div className="hero-ctas">
-              <a href={artist?.external_urls?.spotify} target="_blank" rel="noreferrer" className="spotify-btn hero-cta-primary">
+              <RealismButton href={artist?.external_urls?.spotify} target="_blank" rel="noreferrer" size="large" theme="spotify" className="hero-cta-primary">
                 <SpotifyIcon size={20} /> Listen on Spotify
-              </a>
-              <button className="hero-cta-secondary" onClick={() => setPage("music")}>
+              </RealismButton>
+              <RealismButton onClick={() => setPage("music")} size="large" className="hero-cta-secondary">
                 View Discography →
-              </button>
+              </RealismButton>
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Streaming Portals (Glass Card Stack) */}
+      <section className="section" style={{ textAlign: "center", paddingTop: 40, paddingBottom: 40 }}>
+        <h2 className="section-title">Streaming Portals</h2>
+        <p style={{ color: "var(--muted)", maxWidth: 500, margin: "8px auto 0px", fontSize: "0.95rem" }}>
+          Listen to my official tracks, compilations, and albums on your favorite platforms.
+        </p>
+        <GlassCardStack 
+          spotifyUrl={artist?.external_urls?.spotify || "https://open.spotify.com/artist/51mBnXuigxNHmmUenHJpND"} 
+          appleUrl={APPLE_MUSIC_URL} 
+          ytmusicUrl={YOUTUBE_MUSIC_URL} 
+        />
       </section>
 
       {/* YouTube Video */}
@@ -89,12 +102,12 @@ export default function HomePage({ artist, topTracks, setPage }) {
             <Countdown targetDate={releases[0].date} />
           </div>
           <div className="countdown-presave">
-            <a href={releases[0].spotifyUrl || "https://open.spotify.com/artist/51mBnXuigxNHmmUenHJpND"} target="_blank" rel="noreferrer" className="spotify-btn">
+            <RealismButton href={releases[0].spotifyUrl || "https://open.spotify.com/artist/51mBnXuigxNHmmUenHJpND"} target="_blank" rel="noreferrer" theme="spotify">
               <SpotifyIcon /> Pre-Save on Spotify
-            </a>
-            <a href={releases[0].appleUrl || APPLE_MUSIC_URL} target="_blank" rel="noreferrer" className="spotify-btn" style={{ background: "#FA243C" }}>
+            </RealismButton>
+            <RealismButton href={releases[0].appleUrl || APPLE_MUSIC_URL} target="_blank" rel="noreferrer" theme="apple">
               <AppleMusicIcon /> Pre-Add on Apple Music
-            </a>
+            </RealismButton>
           </div>
         </div>
       </section>
@@ -150,15 +163,15 @@ export default function HomePage({ artist, topTracks, setPage }) {
                 <PopBar value={topTracks[0].popularity} large />
               </div>
               <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                <a href={topTracks[0].external_urls?.spotify} target="_blank" rel="noreferrer" className="spotify-btn">
+                <RealismButton href={topTracks[0].external_urls?.spotify} target="_blank" rel="noreferrer" theme="spotify">
                   <SpotifyIcon size={16} /> Spotify
-                </a>
-                <a href={APPLE_MUSIC_URL} target="_blank" rel="noreferrer" className="spotify-btn" style={{ background: "#FA243C" }}>
+                </RealismButton>
+                <RealismButton href={APPLE_MUSIC_URL} target="_blank" rel="noreferrer" theme="apple">
                   <AppleMusicIcon size={16} /> Apple Music
-                </a>
-                <a href={YOUTUBE_MUSIC_URL} target="_blank" rel="noreferrer" className="spotify-btn" style={{ background: "#FF0000" }}>
+                </RealismButton>
+                <RealismButton href={YOUTUBE_MUSIC_URL} target="_blank" rel="noreferrer" theme="yt">
                   <YouTubeMusicIcon size={16} /> YouTube Music
-                </a>
+                </RealismButton>
               </div>
             </div>
           </div>
