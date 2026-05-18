@@ -25,35 +25,37 @@ export default function MusicPage({ topTracks }) {
       <section className="section">
         <div className="tracks-grid">
           {topTracks.map((t, i) => (
-            <div key={t.id} className="track-card-wrapper">
-              <div 
-                className="track-card" 
-                onMouseEnter={() => setHovering(t.id)} 
-                onMouseLeave={() => setHovering(null)}
-                onClick={() => setSelected(t)}
-              >
-                <div className="track-card-cover">
-                  <Cover url={t.album?.images?.[0]?.url} name={t.name} size={150} radius={12} />
-                  <div className={`track-card-overlay ${hovering === t.id ? "visible" : ""}`}>
-                    <div className="track-play-btn">
-                      {hovering === t.id ? <MusicWave size={28} /> : "▶"}
+            <div key={t.id} className="neon-wrap">
+              <div className="track-card-wrapper">
+                <div 
+                  className="track-card" 
+                  onMouseEnter={() => setHovering(t.id)} 
+                  onMouseLeave={() => setHovering(null)}
+                  onClick={() => setSelected(t)}
+                >
+                  <div className="track-card-cover">
+                    <Cover url={t.album?.images?.[0]?.url} name={t.name} size={150} radius={12} />
+                    <div className={`track-card-overlay ${hovering === t.id ? "visible" : ""}`}>
+                      <div className="track-play-btn">
+                        {hovering === t.id ? <MusicWave size={28} /> : "▶"}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="content-box">
-                  <span className="card-title">{t.name}</span>
-                  <p className="card-content">{t.album?.name}</p>
-                  <div className="track-card-meta">
-                    <span>{fmtMs(t.duration_ms)}</span>
-                    <PopBar value={t.popularity} />
+                  <div className="content-box">
+                    <span className="card-title">{t.name}</span>
+                    <p className="card-content">{t.album?.name}</p>
+                    <div className="track-card-meta">
+                      <span>{fmtMs(t.duration_ms)}</span>
+                      <PopBar value={t.popularity} />
+                    </div>
+                    <span className="see-more">
+                      {hovering === t.id ? "Playing..." : "View track"}
+                    </span>
                   </div>
-                  <span className="see-more">
-                    {hovering === t.id ? "Playing..." : "View track"}
-                  </span>
-                </div>
-                <div className="date-box">
-                  <span className="month">TRACK</span>
-                  <span className="date">{String(i + 1).padStart(2, '0')}</span>
+                  <div className="date-box">
+                    <span className="month">TRACK</span>
+                    <span className="date">{String(i + 1).padStart(2, '0')}</span>
+                  </div>
                 </div>
               </div>
             </div>

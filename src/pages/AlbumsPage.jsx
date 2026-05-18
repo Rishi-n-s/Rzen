@@ -14,24 +14,26 @@ export default function AlbumsPage({ albums }) {
       <h3 className="albums-section-label">{label}</h3>
       <div className="albums-grid">
         {items.map(a => (
-          <div key={a.id} className="album-card-wrapper">
-            <button className="album-card" onClick={() => setSelected(a)}>
-              <div className="album-card-cover">
-                <Cover url={a.images?.[0]?.url} name={a.name} size={150} radius={12} />
-                <div className="album-card-overlay">
-                  <SpotifyIcon size={32} />
+          <div key={a.id} className="neon-wrap">
+            <div className="album-card-wrapper">
+              <button className="album-card" onClick={() => setSelected(a)}>
+                <div className="album-card-cover">
+                  <Cover url={a.images?.[0]?.url} name={a.name} size={150} radius={12} />
+                  <div className="album-card-overlay">
+                    <SpotifyIcon size={32} />
+                  </div>
                 </div>
-              </div>
-              <div className="content-box">
-                <span className="card-title">{a.name}</span>
-                <p className="card-content">{a.release_date?.slice(0, 4)} · {a.total_tracks} tracks</p>
-                <span className="see-more">View Album</span>
-              </div>
-              <div className="date-box">
-                <span className="month">YEAR</span>
-                <span className="date">{a.release_date?.slice(0, 4)}</span>
-              </div>
-            </button>
+                <div className="content-box">
+                  <span className="card-title">{a.name}</span>
+                  <p className="card-content">{a.release_date?.slice(0, 4)} · {a.total_tracks} tracks</p>
+                  <span className="see-more">View Album</span>
+                </div>
+                <div className="date-box">
+                  <span className="month">YEAR</span>
+                  <span className="date">{a.release_date?.slice(0, 4)}</span>
+                </div>
+              </button>
+            </div>
           </div>
         ))}
       </div>

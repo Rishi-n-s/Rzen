@@ -1,5 +1,6 @@
 // ─── MUSIC WAVE ───────────────────────────────────────────────────────────────
 import { useState, useEffect } from "react";
+import InteractivePlatinumBg from "./InteractivePlatinumBg";
 
 export function MusicWave({ playing = true, size = 24 }) {
   return (
@@ -167,11 +168,9 @@ export function EmptyState({ message }) {
 export function AnimatedBg() {
   return (
     <div style={{ position: "fixed", inset: 0, zIndex: 0, overflow: "hidden", pointerEvents: "none" }}>
-      <div className="orb orb1" />
-      <div className="orb orb2" />
-      <div className="orb orb3" />
-      <div className="grid-lines" />
-      <div className="scanline" />
+      <div style={{ position: "absolute", inset: 0, pointerEvents: "auto" }}>
+        <InteractivePlatinumBg />
+      </div>
     </div>
   );
 }
@@ -180,11 +179,35 @@ export function AnimatedBg() {
 export function LoadingScreen() {
   return (
     <div className="loading-screen">
-      <div className="loading-logo">
-        <MusicWave size={48} />
-        <span>RZEN</span>
+      <div className="loading-orbit" aria-hidden="true">
+        <span className="loading-ring loading-ring-one" />
+        <span className="loading-ring loading-ring-two" />
+        <span className="loading-ring loading-ring-three" />
       </div>
-      <p>Loading your experience...</p>
+      <div className="loading-notes" aria-hidden="true">
+        <span>♪</span>
+        <span>♬</span>
+        <span>♫</span>
+        <span>♩</span>
+      </div>
+      <div className="loading-logo" aria-label="Loading RZEN">
+        <MusicWave size={48} />
+        <span className="rzen-wordmark loading-wordmark">RZEN</span>
+      </div>
+      <div className="loading-eq" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+      </div>
+      <div className="loading-bar" aria-hidden="true">
+        <span />
+      </div>
+      <p className="loading-copy">Tuning the vibe...</p>
     </div>
   );
 }
@@ -241,11 +264,11 @@ export function GlassCardStack({ spotifyUrl, appleUrl, ytmusicUrl }) {
   return (
     <div className="glass-card-container">
       {spotifyUrl && (
-        <a 
-          href={spotifyUrl} 
-          target="_blank" 
-          rel="noreferrer" 
-          className="glass-card spotify-card" 
+        <a
+          href={spotifyUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="glass-card spotify-card"
           style={{ "--r": -15 }}
           data-text="Spotify"
         >
@@ -253,11 +276,11 @@ export function GlassCardStack({ spotifyUrl, appleUrl, ytmusicUrl }) {
         </a>
       )}
       {appleUrl && (
-        <a 
-          href={appleUrl} 
-          target="_blank" 
-          rel="noreferrer" 
-          className="glass-card apple-card" 
+        <a
+          href={appleUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="glass-card apple-card"
           style={{ "--r": 5 }}
           data-text="Apple Music"
         >
@@ -265,11 +288,11 @@ export function GlassCardStack({ spotifyUrl, appleUrl, ytmusicUrl }) {
         </a>
       )}
       {ytmusicUrl && (
-        <a 
-          href={ytmusicUrl} 
-          target="_blank" 
-          rel="noreferrer" 
-          className="glass-card yt-card" 
+        <a
+          href={ytmusicUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="glass-card yt-card"
           style={{ "--r": 25 }}
           data-text="YouTube Music"
         >
@@ -279,3 +302,59 @@ export function GlassCardStack({ spotifyUrl, appleUrl, ytmusicUrl }) {
     </div>
   );
 }
+
+// ─── NAV NAVIGATION ICONS ──────────────────────────────────────────────────
+export function HomeIcon({ size = 16, className = "" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} style={{ display: "inline-block", verticalAlign: "middle" }}>
+      <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      <polyline points="9 22 9 12 15 12 15 22" />
+    </svg>
+  );
+}
+
+export function MusicIcon({ size = 16, className = "" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} style={{ display: "inline-block", verticalAlign: "middle" }}>
+      <path d="M9 18V5l12-2v13" />
+      <circle cx="6" cy="18" r="3" />
+      <circle cx="18" cy="16" r="3" />
+    </svg>
+  );
+}
+
+export function AlbumsIcon({ size = 16, className = "" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} style={{ display: "inline-block", verticalAlign: "middle" }}>
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="12" r="6" />
+      <circle cx="12" cy="12" r="2" />
+    </svg>
+  );
+}
+
+export function UpcomingIcon({ size = 16, className = "" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} style={{ display: "inline-block", verticalAlign: "middle" }}>
+      <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+      <path d="M16 2v4" />
+      <path d="M8 2v4" />
+      <path d="M3 10h18" />
+      <path d="M8 14h.01" />
+      <path d="M12 14h.01" />
+      <path d="M16 14h.01" />
+      <path d="M8 18h.01" />
+      <path d="M12 18h.01" />
+    </svg>
+  );
+}
+
+export function AboutIcon({ size = 16, className = "" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} style={{ display: "inline-block", verticalAlign: "middle" }}>
+      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
+  );
+}
+
